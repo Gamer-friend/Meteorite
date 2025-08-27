@@ -194,28 +194,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
-  # Deployment job
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-  monitor_performance:
-    runs-on: ubuntu-latest
-    needs: performance_tests
-    steps:
-      - name: Monitor application performance
-        run: |
-          echo "Monitoring application performance..."
-          # Add your monitoring commands here
-          echo "Performance monitoring complete."
-
   notify_completion:
     runs-on: ubuntu-latest
     needs: [deploy_staging, deploy_production, notify, cleanup]
